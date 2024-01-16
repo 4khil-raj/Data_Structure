@@ -1,18 +1,19 @@
-class node {
-  node? next;
-  node? prev;
+class Dnode {
+  Dnode? next;
+  Dnode? prev;
   int? data;
 
-  node(int data) {
+  Dnode(int data) {
     this.data = data;
   }
 }
 
-class linkedlist {
-  node? head;
-  node? tail;
-  void add(int value) {
-    node newnode = node(value);
+class DoubleyLinkedlist {
+  Dnode? head;
+  Dnode? tail;
+
+  void adddata(int value) {
+    Dnode newnode = Dnode(value);
     if (head == null) {
       head = newnode;
     } else {
@@ -22,34 +23,10 @@ class linkedlist {
     tail = newnode;
   }
 
-  void dispay() {
-    node? current = head;
-    if (current == null) {
-      return;
-    } else {
-      while (current != null) {
-        print(current.data);
-        current = current.next;
-      }
-    }
-  }
-
-  void reverse() {
-    node? current = tail;
-    if (current == null) {
-      return;
-    } else {
-      while (current != null) {
-        print(current.data);
-        current = current.prev;
-      }
-    }
-  }
-
   void delete(int data) {
-    node? current = head;
+    Dnode? current = head;
     if (current != null && current.data == data) {
-      head = head?.next;
+      head = current.next;
     } else {
       while (current != null && current.data != data) {
         current = current.next;
@@ -67,9 +44,26 @@ class linkedlist {
     }
   }
 
+  void display() {
+    Dnode? current = head;
+
+    while (current != null) {
+      print(current.data);
+      current = current.next;
+    }
+  }
+
+  void reverse() {
+    Dnode? current = tail;
+    while (current != null) {
+      print(current.data);
+      current = current.prev;
+    }
+  }
+
   void insert(int after, int value) {
-    node newnode = node(value);
-    node? current = head;
+    Dnode? newnode = Dnode(value);
+    Dnode? current = head;
     while (current != null && current.data != after) {
       current = current.next;
     }
@@ -81,6 +75,7 @@ class linkedlist {
       tail = newnode;
       return;
     }
+    // newnode.next = current.next;
     newnode.prev = current;
     current.next?.prev = newnode;
     current.next = newnode;
@@ -88,13 +83,17 @@ class linkedlist {
 }
 
 void main() {
-  linkedlist list = linkedlist();
-  list.add(51);
-  list.add(50);
-  list.add(222);
-  list.add(50);
-  list.add(120);
-  list.insert(222, 20);
-  list.delete(50);
-  list.dispay();
+  DoubleyLinkedlist list = DoubleyLinkedlist();
+
+  //list.display();
+  list.adddata(10);
+  list.adddata(20);
+  list.adddata(30);
+  list.adddata(40);
+  list.adddata(50);
+  list.adddata(60);
+  list.delete(60);
+  list.insert(20, 5);
+  list.display();
+  list.reverse();
 }
