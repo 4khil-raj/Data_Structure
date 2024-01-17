@@ -60,7 +60,41 @@ class SinglyLinkedList {
     }
   }
 
-  void insert(int after, int value) {
+  void insertbefor(int before, int value) {
+    Node newnode = Node(value);
+    Node? prev;
+    Node? current = head;
+    if (current?.data == before) {
+      head = newnode;
+      head?.next = current;
+    } else {
+      while (current != null && current.data != before) {
+        prev = current;
+        current = current.next;
+      }
+      if (current == null) {
+        return;
+      }
+
+      prev?.next = newnode;
+      newnode.next = current;
+    }
+  }
+
+  void reverse() {
+    Node? current = head;
+    Node? nextnode = head;
+    Node? prev;
+    while (current != null) {
+      nextnode = current.next;
+      current.next = prev;
+      prev = current;
+      current = nextnode;
+    }
+    head = prev;
+  }
+
+  void insertafter(int after, int value) {
     Node? newnode = Node(value);
     Node? temp = head;
 
@@ -102,8 +136,10 @@ void main() {
   list.addNode(10);
   list.addNode(50);
   list.addNode(23);
-  //list.delete(50);
-  list.insert(20, 100);
+  list.delete(50);
+  list.insertafter(20, 100);
   list.removeduplicates();
+  list.insertbefor(23, 15);
+  list.reverse();
   list.disply();
 }
