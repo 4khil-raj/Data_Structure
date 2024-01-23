@@ -47,6 +47,20 @@ class SinglyLinkedList {
     }
   }
 
+  //search
+  void search(int target) {
+    Node? current = head;
+    int i = 0;
+    current ?? print('empty');
+    while (current != null) {
+      if (current.data == target) {
+        print('item found index ${i + 1}');
+      }
+      i++;
+      current = current.next;
+    }
+  }
+
 // to display the list value
   void disply() {
     Node? temp = head;
@@ -113,6 +127,40 @@ class SinglyLinkedList {
     temp.next = newnode;
   }
 
+  void addmiddle(int data) {
+    Node newnode = Node(data);
+    Node? fast = head;
+    Node? slow = head;
+    Node? current;
+    if (fast == null || fast.next == null) {
+      print('cant found it');
+    } else {
+      while (fast != null && fast.next != null) {
+        fast = fast.next?.next;
+        current = slow;
+        slow = slow?.next;
+      }
+      current?.next = newnode;
+      newnode.next = slow;
+    }
+  }
+
+  //delete at middle
+  void deleteMiddle() {
+    if (head == null || head!.next == null) {
+      print("List has only 0/1 node , Can't find a middle");
+    }
+    Node? fast = head;
+    Node? slow = head;
+    Node? prev;
+    while (fast != null && fast.next != null) {
+      fast.next!.next;
+      prev = slow;
+      slow = slow?.next;
+    }
+    prev!.next = slow!.next;
+  }
+
   void removeduplicates() {
     Node? current = head;
     while (current != null) {
@@ -133,13 +181,18 @@ class SinglyLinkedList {
 void main() {
   SinglyLinkedList list = SinglyLinkedList();
   list.addNode(10);
+  list.addNode(250);
+  list.addNode(200);
   list.addNode(10);
   list.addNode(50);
   list.addNode(23);
-  list.delete(50);
-  list.insertafter(20, 100);
-  list.removeduplicates();
-  list.insertbefor(23, 15);
-  list.reverse();
+  // list.delete(50);
+  // list.insertafter(20, 100);
+  //list.removeduplicates();
+  // list.insertbefor(23, 15);
+  // list.reverse();
+  // list.search(10);
+  // list.deleteMiddle();
+  list.addmiddle(5555);
   list.disply();
 }

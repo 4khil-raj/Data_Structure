@@ -1,27 +1,20 @@
-int binary(List<int> list, int target) {
-  int low = 0;
-  int high = list.length - 1;
-  while (low <= high) {
-    int mid = (low + high) ~/ 2;
-    int midvalue = list[mid];
-    if (midvalue == target) {
-      return mid;
-    } else if (midvalue < target) {
-      low = mid + 1;
-    } else {
-      high = mid - 1;
-    }
-  }
-  return -1;
-}
-
 void main() {
-  List<int> list = [1, 2, 3, 4, 5, 6, 7, 8];
-  int target = 5;
-  int result = binary(list, target);
-  if (result == -1) {
-    print('target is not in the list');
-  } else {
-    print('value found index$result');
+  List<int> list = [1, 5, 2, 1, 7, 4, 1, 1];
+  int target = 1;
+  for (int i = 0; i < list.length;) {
+    for (int j = list.length - 1; j > i;) {
+      if (list[j] == target) {
+        j--;
+      } else if (list[i] == target) {
+        int temp = list[i];
+        list[i] = list[j];
+        list[j] = temp;
+        i++;
+      } else {
+        i++;
+      }
+    }
+    i++;
   }
+  print(list);
 }

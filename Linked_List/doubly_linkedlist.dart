@@ -80,6 +80,42 @@ class DoubleyLinkedlist {
     current.next?.prev = newnode;
     current.next = newnode;
   }
+
+  void insertbefore(int before, int value) {
+    Dnode newnode = Dnode(value);
+    Dnode? current = head;
+    if (current?.data == before) {
+      newnode.next = head;
+      head?.prev = newnode;
+      head = newnode;
+    }
+    while (current != null) {
+      if (current.data == before) {
+        break;
+      }
+      current = current.next;
+    }
+    newnode.next = current;
+    newnode.prev = current?.prev;
+    current!.prev!.next = newnode;
+    current.prev = newnode;
+  }
+
+  void removemid() {
+    Dnode? fast = head;
+    Dnode? slow = head;
+    Dnode? current;
+    if (head == null || head?.next == null) {
+      print('cannot found the mid');
+    } else {
+      while (fast != null && fast.next != null) {
+        fast = fast.next?.next;
+        current = slow;
+        slow = slow?.next;
+      }
+      current?.next = slow?.next;
+    }
+  }
 }
 
 void main() {
@@ -87,6 +123,7 @@ void main() {
 
   //list.display();
   list.adddata(10);
+
   list.adddata(20);
   list.adddata(30);
   list.adddata(40);
@@ -94,6 +131,8 @@ void main() {
   list.adddata(60);
   list.delete(60);
   list.insert(20, 5);
+  list.insertbefore(20, 5);
+  list.removemid();
   list.display();
-  list.reverse();
+  //list.reverse();
 }
