@@ -7,5 +7,5 @@ int sum(int n) {
 }
 
 void main() {
-  return print(sum(5));
+  print(sum(5));
 }
