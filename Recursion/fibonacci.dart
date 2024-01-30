@@ -8,7 +8,7 @@ int fibonacci(int n) {
 
 void main() {
   int i = 0;
-  while (i < 100) {
+  while (i < 10) {
     print(fibonacci(i));
     i++;
   }
