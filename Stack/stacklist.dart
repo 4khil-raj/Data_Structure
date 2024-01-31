@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_initializing_formals
+
 class Node {
   int? data;
   Node? next;
@@ -38,6 +40,44 @@ class Stack {
       top = top?.next;
     }
   }
+
+  void delete(int target) {
+    Node? current = top;
+    Node? prev;
+    if (current == null) {
+      return;
+    } else {
+      while (current != null) {
+        if (current.data == target) {
+          break;
+        }
+        prev = current;
+        current = current.next;
+      }
+      prev?.next = current?.next;
+    }
+  }
+
+  void size() {
+    Node? current = top;
+    int i = 0;
+    if (current == null) {
+      return;
+    } else {
+      while (current != null) {
+        i++;
+        current = current.next;
+      }
+    }
+    print('Size $i');
+  }
+
+  void peek() {
+    Node? peek = top;
+    if (top != null) {
+      print('Peek : ${peek?.data}');
+    }
+  }
 }
 
 void main() {
@@ -45,6 +85,9 @@ void main() {
   list.push(1);
   list.push(2);
   list.push(3);
-  list.pop();
+  // list.pop();
+  list.delete(3);
   list.display();
+  list.size();
+  list.peek();
 }

@@ -1,20 +1,52 @@
-void main() {
-  List<int> list = [1, 5, 2, 1, 7, 4, 1, 1];
-  int target = 1;
-  for (int i = 0; i < list.length;) {
-    for (int j = list.length - 1; j > i;) {
-      if (list[j] == target) {
-        j--;
-      } else if (list[i] == target) {
-        int temp = list[i];
-        list[i] = list[j];
-        list[j] = temp;
-        i++;
-      } else {
-        i++;
+class Node {
+  Node? next;
+  int? data;
+
+  Node(int data) {
+    this.data = data;
+  }
+}
+
+class Stack {
+  Node? top;
+
+  void push(int data) {
+    Node newnode = Node(data);
+    if (top == null) {
+      return;
+    } else {
+      newnode.next = top;
+      top = newnode;
+    }
+  }
+
+  void display() {
+    Node? current = top;
+    if (current == null) {
+      return;
+    } else {
+      while (current != null) {
+        print(current.data);
+        current = current.next;
       }
     }
-    i++;
   }
-  print(list);
+
+  void pop() {
+    if (top == null) {
+      return;
+    } else {
+      top = top?.next;
+    }
+  }
+}
+
+void main() {
+  Stack s = Stack();
+  s.push(1);
+  s.push(2);
+  s.push(3);
+  s.push(4);
+  s.pop();
+  s.display();
 }
