@@ -12,7 +12,7 @@ class Node {
 class Queue {
   Node? front;
   Node? rear;
-
+//add node
   void enqueue(int data) {
     Node? newnode = Node(data);
     if (front == null) {
