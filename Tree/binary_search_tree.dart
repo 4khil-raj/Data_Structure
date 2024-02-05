@@ -1,61 +1,110 @@
 class Node {
   int? data;
-  Node? left;
   Node? right;
-  Node({required this.data});
+  Node? left;
+
+  Node(int data) {
+    this.data = data;
+  }
 }
 
-class BinarySerachTree {
+class BinarySearchTree {
   Node? root;
 
   void insert(int data) {
-    Node newNode = Node(data: data);
+    Node newnode = Node(data);
     Node? current = root;
 
-    if (root == null) {
-      root = newNode;
-      print('Inserted: $data');
+    if (current == null) {
+      root = newnode;
       return;
-    }
-
-    while (true) {
-      if (data < current!.data!) {
-        if (current.left == null) {
-          current.left = newNode;
-          print('Inserted: $data');
-          break;
+    } else {
+      while (true) {
+        if (data < current!.data!) {
+          if (current.left == null) {
+            current.left = newnode;
+            break;
+          }
+          current = current.left;
+        } else {
+          if (data > current.data!) {
+            if (current.right == null) {
+              current.right = newnode;
+              break;
+            }
+            current = current.right;
+          }
         }
-        current = current.left;
-      } else {
-        if (current.right == null) {
-          current.right = newNode;
-          print('Inserted: $data');
-          break;
-        }
-        current = current.right;
       }
     }
   }
 
-  bool contains(int data) {
-    Node? curNode = root;
-    while (curNode != null) {
-      if (data < curNode.data!) {
-        curNode = curNode.left;
-      } else if (data > curNode.data!) {
-        curNode = curNode.right;
+  void delete(int data) {}
+  void deleteHelper(int data, Node? currentNode, Node? parent) {
+    while (currentNode != null) {
+      if (data < currentNode.data!) {
+        parent = currentNode;
+        currentNode = currentNode.left;
+      } else if (data > currentNode.data!) {
+        parent = currentNode;
+        currentNode = currentNode.right;
+      } else {
+        if (currentNode.left != null && currentNode.right != null) {
+          currentNode.data = getmin(currentNode.right);
+          deleteHelper(data, currentNode.right, currentNode);
+        } else {
+          Node? child =
+              (currentNode.left != null) ? currentNode.left : currentNode.right;
+          if (parent == null) {
+            root = child;
+          } else {
+            if (parent.left == currentNode) {
+              parent.left = child;
+            } else {
+              parent.right = child;
+            }
+          }
+        }
+        break;
+      }
+    }
+  }
+
+  int getmin(Node? current) {
+    if (current!.left == null) {
+      return current.data!;
+    } else {
+      return getmin(current.left);
+    }
+  }
+
+  bool contains(int target) {
+    Node? current = root;
+
+    while (current != null) {
+      if (target < current.data!) {
+        current = current.left;
+      } else if (target > current.data!) {
+        current = current.right;
       } else {
         return true;
       }
     }
     return false;
   }
+
+  mainroot() {
+    return root?.data;
+  }
 }
 
 void main() {
-  BinarySerachTree bst = BinarySerachTree();
+  BinarySearchTree bst = BinarySearchTree();
   bst.insert(10);
   bst.insert(20);
-  bst.insert(30);
-  bst.contains(10);
+  bst.insert(5);
+  print(bst.mainroot());
+
+  bst.delete(10);
+  print(bst.contains(10));
 }
