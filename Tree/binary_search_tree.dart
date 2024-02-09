@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_initializing_formals
+
 class Node {
   int? data;
   Node? right;
@@ -39,7 +41,10 @@ class BinarySearchTree {
     }
   }
 
-  void delete(int data) {}
+  void delete(int data) {
+    deleteHelper(data, root, null);
+  }
+
   void deleteHelper(int data, Node? currentNode, Node? parent) {
     while (currentNode != null) {
       if (data < currentNode.data!) {
@@ -78,6 +83,30 @@ class BinarySearchTree {
     }
   }
 
+  void inOrder() {
+    inOrderHelper(root);
+  }
+
+  inOrderHelper(Node? node) {
+    if (node != null) {
+      inOrderHelper(node.left);
+      print(node.data);
+      inOrderHelper(node.right);
+    }
+  }
+
+  void preOrder() {
+    preorderHelper(root);
+  }
+
+  preorderHelper(Node? node) {
+    if (node != null) {
+      print(node.data);
+      preorderHelper(node.left);
+      preorderHelper(node.right);
+    }
+  }
+
   bool contains(int target) {
     Node? current = root;
 
@@ -96,6 +125,25 @@ class BinarySearchTree {
   mainroot() {
     return root?.data;
   }
+
+  int getClose(int target) {
+    Node? current = root;
+    int closest = current!.data!;
+
+    while (current != null) {
+      if ((target - closest).abs() > (target - current.data!).abs()) {
+        closest = current.data!;
+      }
+      if (target < current.data!) {
+        current = current.left;
+      } else if (target > current.data!) {
+        current = current.right;
+      } else {
+        break;
+      }
+    }
+    return closest;
+  }
 }
 
 void main() {
@@ -103,8 +151,12 @@ void main() {
   bst.insert(10);
   bst.insert(20);
   bst.insert(5);
-  print(bst.mainroot());
+  bst.insert(15);
+  //print(bst.mainroot());
+  bst.inOrder();
 
-  bst.delete(10);
-  print(bst.contains(10));
+  // bst.delete(10);
+  print(bst.contains(5));
+  bst.preOrder();
+  print('this is the closet data: ${bst.getClose(16)}');
 }

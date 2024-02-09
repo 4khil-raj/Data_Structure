@@ -154,26 +154,25 @@ class SinglyLinkedList {
     Node? slow = head;
     Node? prev;
     while (fast != null && fast.next != null) {
-      fast.next!.next;
+      fast = fast.next!.next;
       prev = slow;
       slow = slow?.next;
     }
     prev!.next = slow!.next;
   }
 
-  void removeduplicates() {
+  void removeDuplicate() {
     Node? current = head;
     while (current != null) {
-      Node? next = current.next;
-      while (next != null && next.data == current.data) {
-        next = next.next;
+      Node? next = current;
+      while (next!.next != null) {
+        if (current.data == next.next!.data) {
+          next.next = next.next!.next;
+        } else {
+          next = next.next;
+        }
       }
-      current.next = next;
-      if (next == tail && current.data == next?.data) {
-        tail = current;
-        tail?.next = null;
-      }
-      current = next;
+      current = next.next;
     }
   }
 }
@@ -183,16 +182,17 @@ void main() {
   list.addNode(10);
   list.addNode(250);
   list.addNode(200);
+  list.addNode(10000);
   list.addNode(10);
   list.addNode(50);
   list.addNode(23);
   // list.delete(50);
   // list.insertafter(20, 100);
-  //list.removeduplicates();
+  list.removeDuplicate();
   // list.insertbefor(23, 15);
   // list.reverse();
   // list.search(10);
   // list.deleteMiddle();
-  list.addmiddle(5555);
+  // list.addmiddle(5555);
   list.disply();
 }
