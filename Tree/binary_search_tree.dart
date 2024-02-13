@@ -157,6 +157,6 @@ void main() {
 
   // bst.delete(10);
   print(bst.contains(5));
-  bst.preOrder();
+  //bst.preOrder();
   print('this is the closet data: ${bst.getClose(16)}');
 }
