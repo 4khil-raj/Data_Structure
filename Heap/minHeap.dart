@@ -58,7 +58,7 @@ class MinHeap {
   void remove() {
     swap(heap, 0, heap.length - 1);
     heap.removeLast();
-    shiftDown(heap.length - 1);
+    shiftDown(0);
   }
 
   void swap(List<int> list, int i, int j) {
@@ -67,7 +67,7 @@ class MinHeap {
     list[j] = temp;
   }
 
-  void diplay() {
+  void display() {
     print(heap);
   }
 
@@ -85,12 +85,11 @@ class MinHeap {
 }
 
 void main() {
-  List<int> list = [9, 7, 3, 6, 4, 2];
-  MinHeap m = MinHeap(list);
-  m.insert(10);
-  m.insert(20);
-  m.insert(30);
-  m.insert(40);
-  m.remove();
-  m.diplay();
+  List<int> list = [6, 2, 8];
+  MinHeap out = MinHeap(list);
+  out.insert(1);
+  out.insert(5);
+  out.insert(15);
+  out.remove();
+  out.display();
 }
