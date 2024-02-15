@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:io';
 
 class TrieNode {
   HashMap children = HashMap();
@@ -6,7 +7,7 @@ class TrieNode {
 
 class Trie {
   TrieNode root = TrieNode();
-  String end = '*';
+  String endSymbol = '*';
 
   Trie(String str) {
     populateSuffixTrie(str);
@@ -14,30 +15,35 @@ class Trie {
 
   void populateSuffixTrie(String str) {
     for (int i = 0; i < str.length; i++) {
-      insertSubString(i, str);
+      insertSubstringStartingAt(i, str);
     }
   }
 
-  void insertSubString(int index, String str) {
-    TrieNode temp = root;
+  void insertSubstringStartingAt(int index, String str) {
+    TrieNode node = root;
     for (int i = index; i < str.length; i++) {
-      if (!temp.children.containsKey(str[i])) {
+      if (!node.children.containsKey(str[i])) {
         TrieNode newnode = TrieNode();
-        temp.children[str[i]] = newnode;
+        node.children[str[i]] = newnode;
       }
-      temp = temp.children[str[i]];
+      node = node.children[str[i]];
     }
-    temp.children[end] = TrieNode();
+    node.children[endSymbol] = TrieNode();
   }
 
   bool contains(String str) {
-    TrieNode temp = root;
+    TrieNode node = root;
     for (int i = 0; i < str.length; i++) {
-      if (temp.children[str[i]] == null || !temp.children.containsKey(str[i])) {
+      if (!node.children.containsKey(str[i])) {
         return false;
       }
-      temp = temp.children[str[i]];
+      node = node.children[str[i]];
     }
-    return temp.children.containsKey(end);
+    return node.children.containsKey(endSymbol);
   }
+}
+
+void main() {
+  Trie trie = Trie('Akhil');
+  stdout.write(trie.contains('hil'));
 }
