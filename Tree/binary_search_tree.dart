@@ -153,10 +153,10 @@ void main() {
   bst.insert(5);
   bst.insert(15);
   //print(bst.mainroot());
-  bst.inOrder();
+  //bst.inOrder();
 
   // bst.delete(10);
   print(bst.contains(5));
-  //bst.preOrder();
+  bst.preOrder();
   print('this is the closet data: ${bst.getClose(16)}');
 }

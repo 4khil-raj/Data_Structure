@@ -101,6 +101,7 @@ class DoubleyLinkedlist {
     current.prev = newnode;
   }
 
+//worng code
   void removemid() {
     Dnode? fast = head;
     Dnode? slow = head;
