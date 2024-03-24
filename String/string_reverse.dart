@@ -1,5 +1,3 @@
-import 'dart:io';
-
 void main() {
   String s = 'malayalam';
   String m = s.split('').reversed.join('');
